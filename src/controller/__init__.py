@@ -7,7 +7,7 @@ import urllib.request,urllib.parse,urllib.error
 
 app = Flask(__name__)
 
-@app.route("/signposting/api")
+@app.route("/signposting/check")
 def home():
     landingpage = request.args.get('url')
     response = {}
@@ -34,7 +34,7 @@ def home():
 
         return  response
 
-@app.route("/signposting")
+@app.route("/")
 def sitehome():
     return render_template("signposting.html")
 
