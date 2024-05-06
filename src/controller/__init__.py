@@ -2,31 +2,37 @@ from flask import Flask, request, render_template
 import signposting
 from signposting import cli
 from io import StringIO
-import sys
+import urllib.request,urllib.parse,urllib.error
+
 
 app = Flask(__name__)
-
-#tmp = sys.stdout
-#my_result = StringIO()
 
 @app.route("/signposting/api")
 def home():
     landingpage = request.args.get('url')
-    s = signposting.find_signposting_http(
-        landingpage)
+    response = {}
 
-    for d in s.describedBy:
-        print(d.target)
-        print(d.type)
+    try:
+        s = signposting.find_signposting_http(
+            landingpage)
+    except (ValueError, urllib.error.HTTPError) as ve:
+        response["Error"] = str(ve)
+        return response
 
-    response = []
-    for sp in s:
-        response.append("%s<p>" % str(sp))
-    #ss = cli.main(landingpage)
-    #tt = cli.print_signposting(s)
+    else:
+        #print it out
+        print(str(s))
 
-    header = "<h1>Signposting: %s</h1>" % landingpage
-    return header + str(response)
+        response = {}
+        c = 1
+        response[c] = "Signposting Landing Page: <" + landingpage + ">"
+
+        for sp in s:
+            l = sp.rel + ": <" + sp.target + ">"
+            c = c+1
+            response[c] = l;
+
+        return  response
 
 @app.route("/signposting")
 def sitehome():
