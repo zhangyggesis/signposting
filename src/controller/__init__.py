@@ -48,8 +48,8 @@ def home():
     except UnrecognizedContentType as uc:
         pass
 
-    hm = "htmlLinks"
-    hp = "httpLinks"
+    hm = "signpostingHtmlLinks"
+    hp = "signpostingHttpLinks"
     url = "PID"
     # The assessment result.
 
