@@ -53,13 +53,13 @@ def home():
     url = "PID"
     # The assessment result.
 
-    assessment = {}
+    check = {}
     signposting_html = {}
     signposting_http = {}
-    response["assessment"] = assessment
-    assessment[hm] = signposting_html
-    assessment[url] = landingpage
-    assessment[hp] = signposting_http
+    response["signpostingCheck"] = check
+    check[hm] = signposting_html
+    check[url] = landingpage
+    check[hp] = signposting_http
 
     # populate signposting html and http, starting from html
     s = s_html
